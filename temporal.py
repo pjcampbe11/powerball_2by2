@@ -1,16 +1,18 @@
 import pandas as pd
+from typing import Optional
+
 from metrics import pair_frequencies, weighted_scores, chi_square_per_pair
 from scoring import build_score_table
 
 WINDOWS = [365, 90, 30]
 
-def get_window_df(df: pd.DataFrame, days: int | None):
+def get_window_df(df: pd.DataFrame, days: Optional[int]):
     if days is None:
         return df
     cutoff = df["date"].max() - pd.Timedelta(days=days)
     return df[df["date"] >= cutoff].copy()
 
-def window_score_df(df: pd.DataFrame, color: str, days: int | None, decay: float):
+def window_score_df(df: pd.DataFrame, color: str, days: Optional[int], decay: float):
     sub = get_window_df(df, days)
     red_freq, white_freq = pair_frequencies(sub)
     freq = red_freq if color == "red" else white_freq
