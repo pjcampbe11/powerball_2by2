@@ -1,0 +1,20 @@
+rules:
+  - name: HIGH_FREQUENCY
+    severity: high
+    when:
+      frequency: "> 15"
+
+  - name: HIGH_DEVIATION
+    severity: high
+    when:
+      chi_square: "> 2.0"
+
+  - name: RECENT_MOMENTUM
+    severity: medium
+    when:
+      weighted_score: "> 3.0"
+
+  - name: EXTREME_OUTLIER
+    severity: critical
+    when:
+      chi_square: "> 5.0"
